@@ -4,15 +4,15 @@ class Paciente(models.Model):
 
     nombre = models.CharField(max_length=40)
     apellido = models.CharField(max_length=40)
-    dni = models.IntegerField(unique=True)
-    telefono = models.IntegerField(unique=True)
+    dni = models.CharField(max_length=40)
+    telefono = models.CharField(max_length=40)
     fecha_nacimiento = models.DateField()
     protocolo = models.CharField(max_length=40)
-    numero_protocolo= models.IntegerField
-    numero_paciente = models.IntegerField(unique=True)
+    numero_protocolo= models.CharField(max_length=40)
+    numero_paciente = models.CharField(max_length=40)
     ojo_estudio = models.CharField(max_length=2)
     site_nombre = models.CharField(max_length=40)
-    site_numero = models.IntegerField
+    site_numero = models.CharField(max_length=40)
     fecha_rando = models.DateField()
 
 

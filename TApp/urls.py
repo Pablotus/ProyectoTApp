@@ -6,8 +6,9 @@ from django.urls import path
 urlpatterns = [
     path('', views.inicio, name="inicio"),
     path('paciente/', views.paciente, name="paciente"),
-    path('buscar paciente', views.buscar_paciente, name="buscar_paciente"),
+    path('buscarpaciente/', views.buscarpaciente, name="buscarpaciente"),
+    path('buscar/', views.buscar),
     path('hoy', views.hoy, name="hoy"),
     path('protocolos', views.protocolos, name="protocolos"),
-    path('agregar paciente', views.agregar_paciente, name="AgregarPacienteForm ")
+    path('agregar_paciente', views.agregar_paciente, name="agregar_paciente"),
 ]

@@ -1,9 +1,11 @@
 {% extends "TApp/index.html" %}
 {% load static %}
 {% block contenidoQueCambia %}
- <!--Aquí va lo que cambia, y lo asociado a está vista :) -->
-    <h1>Buscar paciente</h1>
-    <p>aca va el formulario de busqueda</p>
-    <h3>y el resultado</h3>
 
+<form action="/TApp/buscar_paciente/" method="GET">
+      <h1>Buscardo de pacientes</h1>
+      <input type="number" name="numero_paciente" id="numero_paciente">
+      <input type="submit" value="Buscar">
+
+</form>
 {% endblock %}
