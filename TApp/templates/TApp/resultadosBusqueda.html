@@ -1,13 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
+
+
+
+
+{% extends "TApp/index.html" %}
+
+{% load static %}
+
+{% block contenidoQueCambia %}
+
+
+{#    Buscar curso#}
+    <br><hr>
+    <form action="{% url 'busquedapaciente' %}">
+        {{ form_busqueda.as_p }}
+        <input type="submit" value="Buscar">
+    </form>
+
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Resultados de Búsqueda</title>
 </head>
 <body>
-<P> Estamos buscando el: {{numero_paciente}}</P>
-
-
-
+    <h1>Resultados de Búsqueda</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Número de Paciente</th>
+                <th>Apellido</th>
+                <th>Nombre</th>
+                <!-- Agrega más columnas si es necesario -->
+            </tr>
+        </thead>
+        <tbody>
+            {% if pacientes %}
+                {% for paciente in pacientes %}
+                    <tr>
+                        <td>{{ paciente.numero_paciente }}</td>
+                        <td>{{ paciente.apellido }}</td>
+                        <td>{{ paciente.nombre }}</td>
+                        <!-- Muestra los datos del paciente en las columnas correspondientes -->
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="3">No se encontraron resultados.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
 </body>
 </html>
+{% endblock %}
+

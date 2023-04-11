@@ -18,3 +18,9 @@ class PacienteForm(forms.Form):
 # class ProtocoloForm(forms.Form):
 #         nombre = models.CharField(max_length=40)
 #         codigo = models.CharField(max_length=40)
+
+class BusquedaPacienteForm(forms.Form):
+    numero_paciente = forms.CharField(required=False)
+    apellido = forms.CharField(required=False)
+class BusquedaApellidoForm(forms.Form):
+    apellido = forms.CharField(max_length=40)

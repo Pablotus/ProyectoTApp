@@ -1,9 +1,32 @@
+
 {% extends "TApp/index.html" %}
 {% load static %}
+
 {% block contenidoQueCambia %}
- <!--Aquí va lo que cambia, y lo asociado a está vista :) -->
-    <h1>AcA formulario busqueda de pacientes</h1>
-    <p>PACIENTS</p>
-    <h3>PACIENTES</h3>
+{#    Buscar curso#}
+    <br><hr>
+    <form action="{% url 'busquedapaciente' %}">
+        {{ form_busqueda.as_p }}
+        <input type="submit" value="Buscar">
+    </form>
+
+    <hr><br>
+    <a href="{% url 'agregar_paciente' %}">Agregar paciente</a>
+
+{#    Ver pacientes#}
+    <hr><br>
+    {% if pacientes %}
+        {% for paciente in pacientes %}
+            <p>
+                paciente: {{ paciente.nombre }} numero_paciente: {{ paciente.numero_paciente }}
+                <a href="{% url "eliminar_paciente" paciente.numero_paciente %}">Eliminar</a>
+                <a href="{% url "editar_paciente" paciente.numero_paciente %}">Editar</a>
+            </p>
+
+            <hr>
+        {% endfor %}
+    {% else %}
+        <h1>No hay pacientes por el momento</h1>
+    {% endif %}
 
 {% endblock %}

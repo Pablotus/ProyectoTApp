@@ -1,11 +1,10 @@
 {% extends "TApp/index.html" %}
 {% load static %}
 {% block contenidoQueCambia %}
-
-<form action="/TApp/buscar_paciente/" method="GET">
-      <h1>Buscardo de pacientes</h1>
-      <input type="number" name="numero_paciente" id="numero_paciente">
-      <input type="submit" value="Buscar">
-
+  <form action="{% url 'busquedapaciente' %}">
+  {% csrf_token %}
+  {{ form_busqueda.as_p }}
+  <button type="submit">Buscar</button>
 </form>
-{% endblock %}
+
+
