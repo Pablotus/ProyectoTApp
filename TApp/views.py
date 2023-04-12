@@ -2,38 +2,12 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django import forms
 from TApp.models import Paciente
-from TApp.forms import PacienteForm, BusquedaPacienteForm
+from TApp.forms import PacienteForm, BusquedaPacienteForm, BusquedaApellidoForm
 from django.db.models import Q
-
-
-# def busqueda_paciente(request):
-#     mi_formulario = BusquedaPacienteForm(request.GET)
-#     if mi_formulario.is_valid():
-#         informacion = mi_formulario.cleaned_data
-#         # Obtener el número de paciente y apellido del formulario
-#         numero_paciente = informacion.get('numero_paciente')
-#         apellido = informacion.get('apellido')
-#         # Filtrar pacientes por número de paciente o apellido
-#         if numero_paciente or apellido:
-#             pacientes_filtrados = Paciente.objects.filter(
-#                 Q(numero_paciente__icontains=numero_paciente) | Q(apellido__icontains=apellido)
-#             )
-#             context = {
-#                 "pacientes": pacientes_filtrados
-#             }
-#             return render(request, "TApp/resultadosBusqueda.html", context=context)
-#
-#     # Si el formulario no es válido o no se proporcionaron datos, renderizar la página nuevamente
-#     return render(request, "TApp/busca_paciente.html", {"mi_formulario": mi_formulario})
-
 
 
 def inicio(request):
     return render(request, "TApp/index.html")
-
-
-# def paciente(request):
-#     return render(request, "TApp/paciente.html")
 
 def paciente(request):
 
@@ -44,20 +18,8 @@ def paciente(request):
     }
     return render(request, "TApp/paciente.html", context=context)
 
-
-
 def buscarpaciente(request):
     return render(request, "TApp/buscar_paciente.html")
-
-# def buscar(request):
-#     if request.GET["numero_paciente"]:
-#         numero_paciente = request.GET['numero_paciente']
-#         paciente = Paciente.objects.filter(numero_paciente__icontains=numero_paciente)
-#         return render(request, "TApp/resultadosBusqueda.html", {"apellido":apellido, "numero_paciente":numero_paciente})
-#     else:
-#         respuesta = "no enviaste datos"
-#     return HttpResponse(respuesta)
-
 
 def hoy(request):
     return render(request, "TApp/hoy.html")
@@ -126,16 +88,44 @@ def agregar_paciente(request):
 
     return render(request, "TApp/agregar_paciente.html", {"miFormulario": miFormulario})
 
-def busqueda_paciente(request):
-    mi_formulario = BusquedaPacienteForm(request.GET)
-    if mi_formulario.is_valid():
-        informacion = mi_formulario.cleaned_data
-        pacientes_filtrados = Paciente.objects.filter(numero_paciente__icontains=informacion['numero_paciente'])
+def busqueda_apellido(request):
+    if request.method == 'GET' and 'apellido' in request.GET:
+        mi_formulario2 = BusquedaApellidoForm(request.GET)
+        if mi_formulario2.is_valid():
+            informacion2 = mi_formulario2.cleaned_data
+            pacientes_filtrados2 = Paciente.objects.filter(apellido__icontains=informacion2['apellido'])
+            context2 = {
+                "pacientes": pacientes_filtrados2,
+                "form_busqueda": BusquedaApellidoForm()
+            }
+            return render(request, "TApp/resultadosBusquedaApellido.html", context=context2)
+    else:
+        form_busqueda = BusquedaApellidoForm()
         context = {
-            "pacientes": pacientes_filtrados,
-            "form_busqueda": BusquedaPacienteForm()
+            "pacientes": None,
+            "form_busqueda": form_busqueda
         }
+        return render(request, "TApp/resultadosBusquedaApellido.html", context=context)
 
+
+
+def busqueda_paciente(request):
+    if request.method == 'GET' and 'numero_paciente' in request.GET:
+        mi_formulario2 = BusquedaPacienteForm(request.GET)
+        if mi_formulario2.is_valid():
+            informacion2 = mi_formulario2.cleaned_data
+            pacientes_filtrados2 = Paciente.objects.filter(numero_paciente__icontains=informacion2['numero_paciente'])
+            context2 = {
+                "pacientes": pacientes_filtrados2,
+                "form_busqueda": BusquedaPacienteForm()
+            }
+            return render(request, "TApp/resultadosBusqueda.html", context=context2)
+    else:
+        form_busqueda = BusquedaPacienteForm()
+        context = {
+            "pacientes": None,
+            "form_busqueda": form_busqueda
+        }
         return render(request, "TApp/resultadosBusqueda.html", context=context)
 
 

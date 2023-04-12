@@ -1,0 +1,50 @@
+{% extends "TApp/index.html" %}
+
+{% load static %}
+
+{% block contenidoQueCambia %}
+
+    {# Buscar paciente #}
+    <br><hr>
+    <form action="{% url 'busqueda_apellido' %}">
+        {{ form_busqueda.as_p }}
+        <input type="submit" value="Buscar">
+    </form>
+
+    <html>
+    <head>
+        <title>Resultados de Búsqueda</title>
+    </head>
+    <body>
+        <h1>Resultados de Búsqueda</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Número de Paciente</th>
+                    <th>Apellido</th>
+                    <th>Nombre</th>
+                    <!-- Agrega más columnas si es necesario -->
+                </tr>
+            </thead>
+            <tbody>
+                {% if pacientes %}
+                    {% for paciente in pacientes %}
+                        <tr>
+                            <td>{{ paciente.numero_paciente }}</td>
+                            <td>{{ paciente.apellido }}</td>
+                            <td>{{ paciente.nombre }}</td>
+                            <td>{{ paciente.dni }}</td>
+
+                            <!-- Muestra los datos del paciente en las columnas correspondientes -->
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="3">No se encontraron resultados.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </body>
+    </html>
+{% endblock %}
