@@ -13,6 +13,7 @@ class Paciente(models.Model):
     ojo_estudio = models.CharField(max_length=2)
     site_nombre = models.CharField(max_length=40)
     site_numero = models.CharField(max_length=40)
+    investigador = models.CharField(max_length=40)
     fecha_rando = models.DateField()
 
 
@@ -22,6 +23,11 @@ class Paciente(models.Model):
 class Protocolo(models.Model):
     nombre= models.CharField(max_length=40)
     codigo= models.CharField(max_length=40)
+    site= models.CharField(max_length=40)
+    site_numero= models.CharField(max_length=40)
+    invest_princ= models.CharField(max_length=40)
+    invest_enmasc= models.CharField(max_length=150)
+    invest_NOenmasc= models.CharField(max_length=150)
 
     # def __str__(self):
     #     return f"nombre: {self.nombre}, apellido: {self.apellido}"

@@ -3,8 +3,8 @@
 {% block contenidoQueCambia %}
   <form action="{% url 'busquedapaciente' %}">
   {% csrf_token %}
-  {{ form_busqueda.as_p }}
-  <button type="submit">Buscar</button>
+  <p {{ form_busqueda.as_p }}<button type="submit">Buscar</button></p>
+
 </form>
 
 

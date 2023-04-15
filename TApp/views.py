@@ -1,9 +1,17 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django import forms
-from TApp.models import Paciente
-from TApp.forms import PacienteForm, BusquedaPacienteForm, BusquedaApellidoForm
+from TApp.models import Paciente, Protocolo
+from TApp.forms import PacienteForm, BusquedaPacienteForm, BusquedaApellidoForm, BusquedaProtocoloForm
 from django.db.models import Q
+from django.shortcuts import render
+from django.views.decorators.http import require_http_methods
+from .forms import BusquedaProtocoloForm
+from .models import Protocolo
+import calendar
+from django.shortcuts import render
+from django.views import View
+
 
 
 def inicio(request):
@@ -24,70 +32,13 @@ def buscarpaciente(request):
 def hoy(request):
     return render(request, "TApp/hoy.html")
 
-
-# def agregar_paciente(request):
-#     if request.method == "POST":
-#         mi_formulario = PacienteForm(request.POST)
-#         print(mi_formulario)
-#
-#         if mi_formulario.is_valid:
-#             informacion = mi_formulario.cleaned_data
-#
-#             paciente = Paciente(
-#                 nombre=informacion['nombre'],
-#                 apellido=informacion['apellido'],
-#                 dni=informacion['dni'],
-#                 telefono=informacion['telefono'],
-#                 fecha_nacimiento=informacion['fecha_nacimiento'],
-#                 protocolo=informacion['protocolo'],
-#                 numero_protocolo=informacion['numero_protocolo'],
-#                 ojo_estudio=informacion['ojo_estudio'],
-#                 site_nombre=informacion['site_nombre'],
-#                 site_numero=informacion['site_numero'],
-#                 fecha_rando=informacion['fecha_rando'],
-#
-#             )
-#             paciente.save()
-#             return render(request, "TApp/inicio.html")
-#         else:
-#             miFormulario = PacienteForm()
-#
-#         return render(request, "TApp/agregar_paciente.html", {"miFormulario": miFormulario})
-
-
 def protocolos(request):
-    return render(request, "TApp/protocolos.html")
 
-
-def agregar_paciente(request):
-    if request.method == 'POST':
-
-        miFormulario = PacienteForm(request.POST)
-
-        if miFormulario.is_valid():
-            informacion = miFormulario.cleaned_data
-
-            paciente = Paciente(nombre=informacion['nombre'],
-                                apellido=informacion['apellido'],
-                                dni=informacion['dni'],
-                                telefono=informacion['telefono'],
-                                fecha_nacimiento=informacion['fecha_nacimiento'],
-                                protocolo=informacion['protocolo'],
-                                numero_protocolo=informacion['numero_protocolo'],
-                                numero_paciente=informacion['numero_paciente'],
-                                ojo_estudio=informacion['ojo_estudio'],
-                                site_nombre=informacion['site_nombre'],
-                                site_numero=informacion['site_numero'],
-                                fecha_rando=informacion['fecha_rando'],
-                                )
-
-            paciente.save()
-            return render(request, "TApp/inicio.html")
-    else:
-        miFormulario = PacienteForm()
-
-    return render(request, "TApp/agregar_paciente.html", {"miFormulario": miFormulario})
-
+    all_protocolos = Protocolo.objects.all()
+    context = {
+        "protocolos": all_protocolos,
+    }
+    return render(request, "TApp/protocolos.html", context=context)
 def busqueda_apellido(request):
     if request.method == 'GET' and 'apellido' in request.GET:
         mi_formulario2 = BusquedaApellidoForm(request.GET)
@@ -107,8 +58,6 @@ def busqueda_apellido(request):
         }
         return render(request, "TApp/resultadosBusquedaApellido.html", context=context)
 
-
-
 def busqueda_paciente(request):
     if request.method == 'GET' and 'numero_paciente' in request.GET:
         mi_formulario2 = BusquedaPacienteForm(request.GET)
@@ -127,6 +76,53 @@ def busqueda_paciente(request):
             "form_busqueda": form_busqueda
         }
         return render(request, "TApp/resultadosBusqueda.html", context=context)
+
+
+@require_http_methods(["GET"])
+def buscar_protocolos(request):
+    form_busqueda = BusquedaProtocoloForm(request.GET)
+    protocolos_filtrados = None
+    if form_busqueda.is_valid():
+        informacion = form_busqueda.cleaned_data
+        protocolos_filtrados = Protocolo.objects.filter(nombre__icontains=informacion['nombre'])
+    context = {
+        "protocolos": protocolos_filtrados,
+        "form_busqueda": form_busqueda
+    }
+    return render(request, "TApp/resultadosBusquedaProtocolo.html", context=context)
+
+
+# def agregar_paciente(request):
+#     if request.method == 'POST':
+#
+#         miFormulario = PacienteForm(request.POST)
+#
+#         if miFormulario.is_valid():
+#             informacion = miFormulario.cleaned_data
+#
+#             paciente = Paciente(nombre=informacion['nombre'],
+#                                 apellido=informacion['apellido'],
+#                                 dni=informacion['dni'],
+#                                 telefono=informacion['telefono'],
+#                                 fecha_nacimiento=informacion['fecha_nacimiento'],
+#                                 protocolo=informacion['protocolo'],
+#                                 numero_protocolo=informacion['numero_protocolo'],
+#                                 numero_paciente=informacion['numero_paciente'],
+#                                 ojo_estudio=informacion['ojo_estudio'],
+#                                 site_nombre=informacion['site_nombre'],
+#                                 site_numero=informacion['site_numero'],
+#                                 investigador=informacion['site_numero'],
+#                                 fecha_rando=informacion['fecha_rando'],
+#                                 )
+#
+#             paciente.save()
+#             return render(request, "TApp/inicio.html")
+#     else:
+#         miFormulario = PacienteForm()
+#
+#     return render(request, "TApp/agregar_paciente.html", {"miFormulario": miFormulario})
+
+
 
 
 def eliminar_paciente(request, numero_paciente):
@@ -159,3 +155,15 @@ def editar_paciente(request, numero_paciente):
         })
     }
     return render(request, "TApp/editar_paciente.html", context=context)
+
+
+
+
+
+
+
+
+
+
+
+

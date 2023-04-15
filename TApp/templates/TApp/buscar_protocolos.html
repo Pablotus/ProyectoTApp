@@ -1,0 +1,11 @@
+{% extends "TApp/index.html" %}
+{% load static %}
+{% block contenidoQueCambia %}
+  <form action="{% url 'buscar_protocolos'%}" >
+  {% csrf_token %}
+  {{ form_busqueda.as_p }}
+    <input type="submit" value="Buscar protoc">
+</form>
+{% endblock %}
+
+

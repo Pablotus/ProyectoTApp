@@ -1,0 +1,62 @@
+{% extends "TApp/index.html" %}
+
+{% load static %}
+
+{% block contenidoQueCambia %}
+
+    {# Buscar protocolo #}
+    <br><hr>
+    <form action="{% url 'buscar_protocolos' %}">
+        <!-- Ejemplo de etiquetado personalizado para el campo 'nombre' -->
+    <label for="{{ form_busqueda.nombre.auto_id }}">{{ form_busqueda.nombre.label_tag }}</label>
+            {{ form_busqueda.nombre }}
+        <input type="submit" value="Buscar">
+    </form>
+
+    <html>
+    <head>
+        <title>Resultados de Búsqueda</title>
+    </head>
+    <hr>
+    <body>
+        <h1>Resultados de Búsqueda</h1>
+        <div style="overflow-x:auto;">
+            <table class="tabla-protocolos">
+              <thead>
+              <br>
+                <tr>
+                    <th style="padding-right: 40px;">Nombre</th>
+                    <th style="padding-right: 70px;" >Codigo</th>
+                    <th style="padding-right: 50px;">Site</th>
+                    <th style="padding-right: 30px;" >Numero site</th>
+                    <th style="padding-right: 120px;">PI</th>
+                    <th style="padding-right: 40px;" >Investigadores MASK</th>
+                    <th style="padding-right: 30px;" >Investigadores UnMask</th>
+                    <!-- Agrega más columnas si es necesario -->
+                </tr>
+            </thead>
+            <tbody>
+                {% if protocolos %}
+                    {% for protocolo in protocolos %}
+                        <tr>
+                            <td>{{ protocolo.nombre }}</td>
+                            <td>{{ protocolo.codigo }}</td>
+                            <td>{{ protocolo.site }}</td>
+                            <td>{{ protocolo.site_numero }}</td>
+                            <td>{{ protocolo.invest_princ }}</td>
+                            <td>{{ protocolo.invest_enmasc }}</td>
+                            <td>{{ protocolo.invest_NOenmasc }}</td>
+
+                            <!-- Muestra los datos del paciente en las columnas correspondientes -->
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="3">No se encontraron protocolos.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </body>
+    </html>
+{% endblock %}

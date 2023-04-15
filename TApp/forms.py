@@ -12,12 +12,9 @@ class PacienteForm(forms.Form):
     ojo_estudio = forms.CharField(max_length=2)
     site_nombre = forms.CharField(max_length=40)
     site_numero = forms.CharField(max_length=40)
+    investigador=forms.CharField(max_length=40)
     fecha_rando = forms.DateField()
 
-#
-# class ProtocoloForm(forms.Form):
-#         nombre = models.CharField(max_length=40)
-#         codigo = models.CharField(max_length=40)
 
 class BusquedaPacienteForm(forms.Form):
     numero_paciente = forms.CharField(required=False)
@@ -25,3 +22,7 @@ class BusquedaPacienteForm(forms.Form):
 
 class BusquedaApellidoForm(forms.Form):
     apellido = forms.CharField(required=False, max_length=40)
+
+class BusquedaProtocoloForm(forms.Form):
+    nombre = forms.CharField(max_length=40)
+

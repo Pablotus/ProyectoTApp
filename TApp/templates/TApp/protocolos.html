@@ -1,9 +1,44 @@
 {% extends "TApp/index.html" %}
 {% load static %}
+
 {% block contenidoQueCambia %}
- <!--Aquí va lo que cambia, y lo asociado a está vista :) -->
-    <h1>Los protocolos son:</h1>
-    <p>Nombre, codigo</p>
-    <h3>CONDOR, PULSAR</h3>
+
+    {# Ver todos los protocolos #}
+    <div style="overflow-x:auto;">
+        <table class="tabla-protocolos">
+            <h1 class="mt-4">Todos los protocolos</h1>
+            <thead>
+            <br>
+                <tr>
+                    <th style="padding-right: 40px;">Nombre</th>
+                    <th style="padding-right: 70px;">Código</th>
+                    <th style="padding-right: 50px;">Site</th>
+                    <th style="padding-right: 30px;">Número Site</th>
+                    <th style="padding-right: 120px;">PI</th>
+                    <th style="padding-right: 40px;">Investigadores MASK</th>
+                    <th style="padding-right: 30px;">Investigadores UnMask</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if protocolos %}
+                    {% for protocolo in protocolos %}
+                        <tr>
+                            <td>{{ protocolo.nombre }}</td>
+                            <td>{{ protocolo.codigo }}</td>
+                            <td>{{ protocolo.site }}</td>
+                            <td>{{ protocolo.site_numero }}</td>
+                            <td>{{ protocolo.invest_princ }}</td>
+                            <td>{{ protocolo.invest_enmasc }}</td>
+                            <td>{{ protocolo.invest_NOenmasc }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="7">No hay protocolos por el momento</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
 
 {% endblock %}

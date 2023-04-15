@@ -20,9 +20,18 @@
         <table>
             <thead>
                 <tr>
-                    <th>Número de Paciente</th>
-                    <th>Apellido</th>
-                    <th>Nombre</th>
+                    <th style="padding-right: 40px;">Num Paciente</th>
+                    <th style="padding-right: 40px;">Apellido</th>
+                    <th style="padding-right: 40px;">Nombre</th>
+                    <th style="padding-right: 40px;">Telefono</th>
+                    <th style="padding-right: 60px;">Fech Nac</th>
+                    <th style="padding-right: 40px;">Protocolo</th>
+                    <th style="padding-right: 40px;">Cod. Protoc</th>
+                    <th style="padding-right: 40px;">Num paciente</th>
+                    <th style="padding-right: 40px;">Ojo</th>
+                    <th style="padding-right: 40px;">Site</th>
+                    <th style="padding-right: 40px;">Num Site</th>
+                    <th  style="padding-right: 40px;">PI</th>
                     <!-- Agrega más columnas si es necesario -->
                 </tr>
             </thead>
@@ -30,10 +39,18 @@
                 {% if pacientes %}
                     {% for paciente in pacientes %}
                         <tr>
-                            <td>{{ paciente.numero_paciente }}</td>
-                            <td>{{ paciente.apellido }}</td>
-                            <td>{{ paciente.nombre }}</td>
-                            <td>{{ paciente.dni }}</td>
+                        <td>{{ paciente.numero_paciente }}</td>
+                        <td>{{ paciente.apellido }}</td>
+                        <td>{{ paciente.nombre }}</td>
+                        <td>{{ paciente.telefono }}</td>
+                        <td>{{ paciente.fecha_nacimiento }}</td>
+                        <td>{{ paciente.protocolo }}</td>
+                        <td>{{ paciente.numero_protocolo }}</td>
+                        <td>{{ paciente.numero_paciente }}</td>
+                        <td>{{ paciente.ojo_estudio }}</td>
+                        <td>{{ paciente.site_nombre }}</td>
+                        <td>{{ paciente.site_numero }}</td>
+                        <td>{{ paciente.investigador }}</td>
 
                             <!-- Muestra los datos del paciente en las columnas correspondientes -->
                         </tr>

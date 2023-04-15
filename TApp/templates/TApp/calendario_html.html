@@ -1,0 +1,18 @@
+{% extends "TApp/index.html" %}
+
+{% load static %}
+
+{% block contenidoQueCambia %}
+
+
+<head>
+    <title>Calendario de Citas</title>
+</head>
+<body>
+    <h1>Calendario de Citas</h1>
+    <div>
+        {{ calendario_html|safe }}
+    </div>
+</body>
+
+{% endblock %}
