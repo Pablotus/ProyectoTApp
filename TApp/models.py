@@ -14,8 +14,9 @@ class Paciente(models.Model):
     site_nombre = models.CharField(max_length=40)
     site_numero = models.CharField(max_length=40)
     investigador = models.CharField(max_length=40)
+    fecha_visita = models.DateField()
+    visita = models.CharField(max_length=8)
     fecha_rando = models.DateField()
-
 
     # def __str__(self):
     #     return f"nombre: {self.nombre}, apellido: {self.apellido}"

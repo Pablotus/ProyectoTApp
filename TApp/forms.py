@@ -13,6 +13,8 @@ class PacienteForm(forms.Form):
     site_nombre = forms.CharField(max_length=40)
     site_numero = forms.CharField(max_length=40)
     investigador=forms.CharField(max_length=40)
+    fecha_visita = forms.DateField()
+    visita = forms.CharField(max_length=8)
     fecha_rando = forms.DateField()
 
 
@@ -25,4 +27,3 @@ class BusquedaApellidoForm(forms.Form):
 
 class BusquedaProtocoloForm(forms.Form):
     nombre = forms.CharField(max_length=40)
-

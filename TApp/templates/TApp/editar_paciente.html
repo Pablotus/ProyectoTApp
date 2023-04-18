@@ -1,9 +1,9 @@
-{% extends "base.html" %}
+{% extends "TApp/index.html" %}
 
 
 {% block contenido_cambia %}
     {#Creacion de curso#}
-    <form action="{% url 'AppCoderEditarCurso' camada %}" method="post">
+    <form action="{% url 'editar_paciente' fecha_visita visita %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Editar">

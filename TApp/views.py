@@ -11,8 +11,12 @@ from .models import Protocolo
 import calendar
 from django.shortcuts import render
 from django.views import View
+from django.shortcuts import render
+from datetime import datetime
 
+def hoy(request):
 
+    return render(request, 'TApp/hoy.html')
 
 def inicio(request):
     return render(request, "TApp/index.html")
@@ -29,8 +33,8 @@ def paciente(request):
 def buscarpaciente(request):
     return render(request, "TApp/buscar_paciente.html")
 
-def hoy(request):
-    return render(request, "TApp/hoy.html")
+# def hoy(request):
+#     return render(request, "TApp/hoy.html")
 
 def protocolos(request):
 
@@ -131,8 +135,9 @@ def eliminar_paciente(request, numero_paciente):
 
         return redirect("paciente")
 
-def editar_paciente(request, numero_paciente):
-    get_paciente = Paciente.objects.get(numero_paciente=numero_paciente)
+def editar_paciente(request, fecha_visita, visita):
+    get_fecha = Paciente.objects.get(fecha_visita=fecha_visita)
+    get_visita = Paciente.objects.get(visita=visita)
 
     if request.method == "POST":
         mi_formulario = PacienteForm(request.POST)
@@ -140,18 +145,19 @@ def editar_paciente(request, numero_paciente):
         if mi_formulario.is_valid():
             informacion = mi_formulario.cleaned_data
 
-            get_paciente.nombre = informacion['nombre']
-            get_paciente.numero_paciente = informacion['numero_paciente']
+            get_fecha.fecha_visita= informacion['Fecha visita proxima']
+            get_visita.visita = informacion['visita']
 
             get_paciente.save()
             return redirect("inicio")
 
 
     context = {
-        "numero_paciente": numero_paciente,
+        "fecha_visita": fecha_visita,
+        "visita": visita,
         "form": PacienteForm(initial={
-            "nombre": get_paciente.nombre,
-            "numero_paciente": get_paciente.numero_paciente
+            "fecha_visita": get_fecha.fecha_visita,
+            "visita": get_visita.visita
         })
     }
     return render(request, "TApp/editar_paciente.html", context=context)

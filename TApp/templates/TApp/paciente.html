@@ -19,7 +19,7 @@
             <p>
                 paciente: {{ paciente.nombre }} numero_paciente: {{ paciente.numero_paciente }}
                 <a href="{% url "eliminar_paciente" paciente.numero_paciente %}">Eliminar</a>
-                <a href="{% url "editar_paciente" paciente.numero_paciente %}">Editar</a>
+                <a href="{% url "editar_paciente" paciente.fecha_visita paciente.visita %}">Editar</a>
             </p>
 
             <hr>
