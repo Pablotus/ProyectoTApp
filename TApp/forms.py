@@ -1,4 +1,8 @@
 from django import forms
+from django.forms import ModelForm
+from .models import Paciente
+
+
 
 class PacienteForm(forms.Form):
     nombre = forms.CharField(max_length=40)
@@ -13,9 +17,10 @@ class PacienteForm(forms.Form):
     site_nombre = forms.CharField(max_length=40)
     site_numero = forms.CharField(max_length=40)
     investigador=forms.CharField(max_length=40)
+    fecha_rando = forms.DateField()
     fecha_visita = forms.DateField()
     visita = forms.CharField(max_length=8)
-    fecha_rando = forms.DateField()
+
 
 
 class BusquedaPacienteForm(forms.Form):
@@ -27,3 +32,26 @@ class BusquedaApellidoForm(forms.Form):
 
 class BusquedaProtocoloForm(forms.Form):
     nombre = forms.CharField(max_length=40)
+
+
+
+from django.forms import ModelForm
+from .models import Paciente
+
+class PacienteVisitaForm(ModelForm):
+    class Meta:
+        model = Paciente
+        fields = ['numero_paciente', 'apellido', 'nombre', 'fecha_visita', 'visita']
+
+    def __init__(self, *args, **kwargs):
+        instance = kwargs.get('instance', None)
+        if instance:
+            kwargs.setdefault('initial', {})
+            kwargs['initial'].update({
+                'numero_paciente': instance.numero_paciente,
+                'apellido': instance.apellido,
+                'nombre': instance.nombre,
+                'fecha_visita': instance.fecha_visita,
+                'visita': instance.visita,
+            })
+        super().__init__(*args, **kwargs)

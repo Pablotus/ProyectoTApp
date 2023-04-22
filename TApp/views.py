@@ -14,6 +14,17 @@ from django.views import View
 from django.shortcuts import render
 from datetime import datetime
 
+
+from django.forms import ModelForm
+from .models import Paciente
+
+
+
+
+
+
+
+
 def hoy(request):
 
     return render(request, 'TApp/hoy.html')
@@ -135,9 +146,89 @@ def eliminar_paciente(request, numero_paciente):
 
         return redirect("paciente")
 
-def editar_paciente(request, fecha_visita, visita):
-    get_fecha = Paciente.objects.get(fecha_visita=fecha_visita)
-    get_visita = Paciente.objects.get(visita=visita)
+# def editar_visita(request, fecha_visita, visita, numero_paciente, apellido, nombre):
+#     get_numero_paciente = Paciente.objects.get(numero_paciente=numero_paciente)
+#     get_apellido = Paciente.objects.get(apellido=apellido)
+#     get_nombre = Paciente.objects.get(nombre=nombre)
+#     get_fecha = Paciente.objects.get(fecha_visita=fecha_visita)
+#     get_visita = Paciente.objects.get(visita=visita)
+#
+#     if request.method == "POST":
+#         mi_formulario = PacienteForm(request.POST)
+#
+#         if mi_formulario.is_valid():
+#             informacion = mi_formulario.cleaned_data
+#             get_numero_paciente.numero_paciente = informacion['Numero de paciente']
+#             get_apellido.apellido = informacion['Apellido']
+#             get_nombre.nombre = informacion['Nombre']
+#             get_fecha.fecha_visita= informacion['Fecha visita proxima']
+#             get_visita.visita = informacion['visita']
+#
+#
+#             get_numero_paciente.save()
+#             get_apellido.save()
+#             get_nombre.save()
+#             get_fecha.save()
+#             get_visita.save()
+#             return redirect("inicio")
+#
+#
+#     context = {
+#         "numero_paciente": numero_paciente,
+#         "apellido": apellido,
+#         "nombre": nombre,
+#         "fecha_visita": fecha_visita,
+#         "visita": visita,
+#         "form": PacienteForm(initial={
+#             "numero_paciente": get_numero_paciente.numero_paciente,
+#             "apellido": get_apellido.apellido,
+#             "nombre": get_nombre.nombre,
+#             "fecha_visita": get_fecha.fecha_visita,
+#             "visita": get_visita.visita,
+#         })
+#     }
+#     return render(request, "TApp/editar_visita.html", context=context)
+
+# def editar_visita(request, fecha_visita, visita, numero_paciente, apellido, nombre):
+#     get_paciente = Paciente.objects.get(numero_paciente=numero_paciente, apellido=apellido,nombre=nombre,fecha_visita=fecha_visita,visita=visita)
+#
+#
+#     if request.method == "POST":
+#         mi_formulario = PacienteForm(request.POST)
+#
+#         if mi_formulario.is_valid():
+#             informacion = mi_formulario.cleaned_data
+#
+#             get_paciente.numero_paciente = informacion['Numero de paciente']
+#             get_paciente.apellido = informacion['Apellido']
+#             get_paciente.nombre = informacion['Nombre']
+#             get_paciente.fecha_visita= informacion['Fecha visita proxima']
+#             get_paciente.visita = informacion['visita']
+#
+#             get_paciente.save()
+#
+#             return redirect("inicio")
+#
+#
+#     context = {
+#         "numero_paciente": numero_paciente,
+#         "apellido": apellido,
+#         "nombre": nombre,
+#         "fecha_visita": fecha_visita,
+#         "visita": visita,
+#         "form": PacienteForm(initial={
+#             "numero_paciente": get_paciente.numero_paciente,
+#             "apellido": get_paciente.apellido,
+#             "nombre": get_paciente.nombre,
+#             "fecha_visita": get_paciente.fecha_visita,
+#             "visita": get_paciente.visita,
+#         })
+#     }
+#     return render(request, "TApp/editar_visita.html", context=context)
+
+def editar_visita(request, fecha_visita, visita):
+    get_paciente = Paciente.objects.get(fecha_visita=fecha_visita, visita=visita)
+
 
     if request.method == "POST":
         mi_formulario = PacienteForm(request.POST)
@@ -145,25 +236,35 @@ def editar_paciente(request, fecha_visita, visita):
         if mi_formulario.is_valid():
             informacion = mi_formulario.cleaned_data
 
-            get_fecha.fecha_visita= informacion['Fecha visita proxima']
-            get_visita.visita = informacion['visita']
-
+            get_paciente.fecha_visita= informacion['fecha_visita']
+            get_paciente.visita = informacion['visita']
             get_paciente.save()
-            return redirect("inicio")
+
+            return redirect("paciente")
 
 
     context = {
         "fecha_visita": fecha_visita,
         "visita": visita,
         "form": PacienteForm(initial={
-            "fecha_visita": get_fecha.fecha_visita,
-            "visita": get_visita.visita
+            "numero_paciente": get_paciente.numero_paciente,
+            "apellido": get_paciente.apellido,
+            "dni": get_paciente.dni,
+            "telefono": get_paciente.telefono,
+            "fecha_nacimiento": get_paciente.fecha_nacimiento,
+            "protocolo": get_paciente.protocolo,
+            "numero_protocolo": get_paciente.numero_protocolo,
+            "ojo_estudio": get_paciente.ojo_estudio,
+            "site_nombre": get_paciente.site_nombre,
+            "site_numero": get_paciente.site_numero,
+            "investigador": get_paciente.investigador,
+            "fecha_rando": get_paciente.fecha_rando,
+            "nombre": get_paciente.nombre,
+            "fecha_visita": get_paciente.fecha_visita,
+            "visita": get_paciente.visita,
         })
     }
-    return render(request, "TApp/editar_paciente.html", context=context)
-
-
-
+    return render(request, "TApp/editar_visita.html", context=context)
 
 
 

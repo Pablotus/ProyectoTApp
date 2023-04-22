@@ -1,0 +1,16 @@
+{% extends "TApp/index.html" %}
+
+
+{% block contenidoQueCambia %}
+<head>
+  <title>Programar proxima visita</title>
+
+</head>
+    <form action="{% url 'editar_visita' fecha_visita visita %}" method="post">
+
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Editar">
+    </form>
+</body>
+{% endblock %}
