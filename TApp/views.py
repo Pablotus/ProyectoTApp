@@ -103,7 +103,7 @@ def buscar_protocolos(request):
         "protocolos": protocolos_filtrados,
         "form_busqueda": form_busqueda
     }
-    return render(request, "TApp/resultadosBusquedaProtocolo.html", context=context)
+    return render(request, "TApp/protocolos.html", context=context)
 
 
 # def agregar_paciente(request):

@@ -5,18 +5,26 @@
 
     {# Ver todos los protocolos #}
 <br><hr>
-   <form action="{% url 'buscar_protocolos' %}">
-        <!-- Ejemplo de etiquetado personalizado para el campo 'nombre' -->
-    <label for="{{ form_busqueda.nombre.auto_id }}">{{ form_busqueda.nombre.label_tag }}</label>
-            {{ form_busqueda.nombre }}
-        <input type="submit" value="Buscar Protocolo">
-    </form>
+    <div class="search-container">
+        <form method="GET" action="{% url 'buscar_protocolos' %}">
+            <input type="text" placeholder="Nombre de protocolo" name="nombre">
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
 
-
-
+     <html>
+     <head>
+    <title>Lista de todos los pacientes</title>
+    <style>
+        table {
+            border-collapse: separate;
+            border-spacing: 10px;
+        }
+    </style>
+</head>
     <div style="overflow-x:auto;">
         <table class="tabla-protocolos">
-            <h1 class="mt-4">Todos los protocolos</h1>
+            <h1 class="mt-4">Protocolos</h1>
             <thead>
             <br>
                 <tr>
