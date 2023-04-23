@@ -1,32 +1,12 @@
 {% extends "TApp/index.html" %}
 {% load static %}
 
-{% block contenidoQueCambia %}
-{#    Buscar curso#}
-<html>
-    <br><hr>
-  <form action="{% url 'busquedapaciente' %}">
-        <!-- Ejemplo de etiquetado personalizado para el campo 'nombre' -->
-    <label for="{{ form_busqueda.numero_paciente.auto_id }}">{{ form_busqueda.numero_paciente.label_tag }}</label>
-            {{ form_busqueda.numero_paciente }}
-        <input type="submit" value="Buscar">
-    </form>
 
-<html>
-<head>
-    <title>Lista de todos los pacientes</title>
-    <style>
-        table {
-            border-collapse: separate;
-            border-spacing: 10px;
-        }
-    </style>
-</head>
-<body>
-    <h1>Lista de todos los pacientes</h1>
-    <table>
-        <thead>
-            <tr>
+{% block contenidoQueCambia %}
+
+<table>
+  <thead>
+    <tr>
                 <th style="padding-right: 20px;">Num Paciente</th>
                 <th style="padding-right: 20px;">Apellido</th>
                 <th style="padding-right: 20px;">Nombre</th>
@@ -38,15 +18,15 @@
                 <th style="padding-right: 20px;">Num Site</th>
                 <th style="padding-right: 20px;">Visita</th>
                 <th style="padding-right: 20px;">Fecha visita</th>
-                 <th style="padding-right: 20px;">Comentario</th>
+                <th style="padding-right: 20px;">Comentario</th>
                 <!-- Agrega más columnas si es necesario -->
             </tr>
-        </thead>
-        <tbody>
-            {% if pacientes %}
-                {% for paciente in pacientes %}
-                    <tr>
-                        <td>{{ paciente.numero_paciente }}</td>
+
+  </thead>
+  <tbody>
+    {% for paciente in pacientes %}
+    <tr>
+        <td>{{ paciente.numero_paciente }}</td>
                         <td>{{ paciente.apellido }}</td>
                         <td>{{ paciente.nombre }}</td>
                         <td>{{ paciente.fecha_nacimiento|date:'Y' }}</td>
@@ -58,17 +38,12 @@
                         <td>{{ paciente.visita }}</td>
                         <td>{{ paciente.fecha_visita }}</td>
                         <td>{{ paciente.comentario }}</td>
-                        <td><a href="{% url 'editar_visita' paciente.fecha_visita paciente.visita paciente.comentario %}">Programar visita</a></td>
-                        <!-- Muestra los datos del paciente en las columnas correspondientes -->
-                    </tr>
-                {% endfor %}
-            {% else %}
-                <tr>
-                    <td colspan="3">No se encontraron resultados.</td>
-                </tr>
-            {% endif %}
-        </tbody>
-    </table>
-</body>
-</html>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+
+
 {% endblock %}

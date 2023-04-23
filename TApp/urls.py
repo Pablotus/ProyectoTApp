@@ -13,4 +13,5 @@ urlpatterns = [
     path('inicio/editar/<fecha_visita>/,<visita>/<comentario>/', views.editar_visita, name="editar_visita"),
     path('busqueda_apellido', views.busqueda_apellido, name="busqueda_apellido"),
     path('buscar_protocolos',views.buscar_protocolos, name="buscar_protocolos"),
+    path('calendario', views.calendario, name="calendario"),
 ]

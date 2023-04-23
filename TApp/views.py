@@ -17,8 +17,17 @@ from django.utils import timezone
 
 from django.forms import ModelForm
 from .models import Paciente
+from datetime import datetime, timedelta
+from django.utils import timezone
+
+def calendario(request):
+    fecha_inicio = timezone.now().date()
+    fecha_fin = fecha_inicio + timedelta(days=30)
+
+    pacientes = Paciente.objects.filter(fecha_visita__range=[fecha_inicio, fecha_fin]).order_by('fecha_visita')
 
 
+    return render(request, 'TApp/calendario.html', {'pacientes': pacientes})
 
 
 def hoy(request):

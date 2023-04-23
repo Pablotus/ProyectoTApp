@@ -44,6 +44,7 @@
                 <th style="padding-right: 40px;">Num Site</th>
                 <th style="padding-right: 30px;">Visita</th>
                 <th style="padding-right: 30px;">Fecha visita</th>
+                <th style="padding-right: 20px;">Comentario</th>
 
                 <!-- Agrega más columnas si es necesario -->
             </tr>
@@ -63,6 +64,7 @@
                         <td>{{ paciente.site_numero }}</td>
                         <td>{{ paciente.visita }}</td>
                         <td>{{ paciente.fecha_visita }}</td>
+                        <td>{{ paciente.comentario }}</td>
                         <td><a href="{% url 'editar_visita' paciente.fecha_visita paciente.visita paciente.comentario %}">Programar visita</a></td>
                         <!-- Muestra los datos del paciente en las columnas correspondientes -->
                     </tr>
