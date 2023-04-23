@@ -13,7 +13,7 @@ from django.shortcuts import render
 from django.views import View
 from django.shortcuts import render
 from datetime import datetime
-
+from django.utils import timezone
 
 from django.forms import ModelForm
 from .models import Paciente
@@ -21,13 +21,12 @@ from .models import Paciente
 
 
 
-
-
-
-
 def hoy(request):
+    pacientes = Paciente.objects.filter(fecha_visita=timezone.now().date())
 
-    return render(request, 'TApp/hoy.html')
+    return render(request, 'TApp/hoy.html', {'pacientes': pacientes})
+
+
 
 def inicio(request):
     return render(request, "TApp/index.html")

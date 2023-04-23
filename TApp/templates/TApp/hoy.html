@@ -1,9 +1,52 @@
 {% extends "TApp/index.html" %}
 {% load static %}
 {% block contenidoQueCambia %}
- <!--Aquí va lo que cambia, y lo asociado a está vista :) -->
-    <h1>FECHA de HOY</h1>
-    <p>PACIENTS para HOY</p>
-    <h3>EN todos los centros</h3>
 
+  <h1>Pacientes con visita hoy</h1>
+
+    <ul>
+      <table>
+       <thead>
+            <tr>
+                <th style="padding-right: 40px;">Num Paciente</th>
+                <th style="padding-right: 40px;">Apellido</th>
+                <th style="padding-right: 40px;">Nombre</th>
+                <th style="padding-right: 60px;">Fech Nac</th>
+                <th style="padding-right: 40px;">Protocolo</th>
+                <th style="padding-right: 40px;">Cod. Protoc</th>
+                <th style="padding-right: 40px;">Ojo</th>
+                <th style="padding-right: 40px;">Site</th>
+                <th style="padding-right: 40px;">Num Site</th>
+                <th style="padding-right: 40px;">Visita</th>
+                <!-- Agrega más columnas si es necesario -->
+            </tr>
+        </thead>
+        <tbody>
+           {% if pacientes %}
+                {% for paciente in pacientes %}
+                   <tr>
+                        <td>{{ paciente.numero_paciente }}</td>
+                        <td>{{ paciente.apellido }}</td>
+                        <td>{{ paciente.nombre }}</td>
+                        <td>{{ paciente.fecha_nacimiento|date:'Y' }}</td>
+                        <td>{{ paciente.protocolo }}</td>
+                        <td>{{ paciente.numero_protocolo }}</td>
+                        <td>{{ paciente.ojo_estudio }}</td>
+                        <td>{{ paciente.site_nombre }}</td>
+                        <td>{{ paciente.site_numero }}</td>
+                        <td>{{ paciente.visita }}</td>
+                        <td><a href="{% url 'editar_visita' paciente.fecha_visita paciente.visita %}">Programar visita</a></td>
+                        <!-- Muestra los datos del paciente en las columnas correspondientes -->
+                    </tr>
+
+    {% endfor %}
+    </ul>
+  {% else %}
+    <p>No hay pacientes con visita hoy.</p>
+  {% endif %}
+</tbody>
+<table>
 {% endblock %}
+
+
+

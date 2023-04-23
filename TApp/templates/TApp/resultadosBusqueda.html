@@ -7,11 +7,24 @@
 
 {#    Buscar curso#}
     <br><hr>
-    <form action="{% url 'busquedapaciente' %}">
-        {{ form_busqueda.as_p }} <input type="submit" value="Buscar" style="display: inline-block;">
+  <form action="{% url 'busquedapaciente' %}">
+        <!-- Ejemplo de etiquetado personalizado para el campo 'nombre' -->
+    <label for="{{ form_busqueda.numero_paciente.auto_id }}">{{ form_busqueda.numero_paciente.label_tag }}</label>
+            {{ form_busqueda.numero_paciente }}
+        <input type="submit" value="Buscar">
     </form>
 
 <html>
+<head>
+    <title>Lista de todos los pacientes</title>
+    <style>
+        table {
+            border-collapse: separate;
+            border-spacing: 10px;
+        }
+    </style>
+</head>
+
 <head>
     <title>Resultados de Búsqueda</title>
 </head>
@@ -23,14 +36,15 @@
                 <th style="padding-right: 40px;">Num Paciente</th>
                 <th style="padding-right: 40px;">Apellido</th>
                 <th style="padding-right: 40px;">Nombre</th>
-                <th style="padding-right: 40px;">Telefono</th>
-                <th style="padding-right: 60px;">Fech Nac</th>
+                <th style="padding-right: 40px;">Fecha Nac</th>
                 <th style="padding-right: 40px;">Protocolo</th>
                 <th style="padding-right: 40px;">Cod. Protoc</th>
                 <th style="padding-right: 40px;">Ojo</th>
                 <th style="padding-right: 40px;">Site</th>
                 <th style="padding-right: 40px;">Num Site</th>
-                <th  style="padding-right: 80px;">PI</th>
+                <th style="padding-right: 30px;">Visita</th>
+                <th style="padding-right: 30px;">Fecha visita</th>
+
                 <!-- Agrega más columnas si es necesario -->
             </tr>
         </thead>
@@ -41,15 +55,15 @@
                         <td>{{ paciente.numero_paciente }}</td>
                         <td>{{ paciente.apellido }}</td>
                         <td>{{ paciente.nombre }}</td>
-                        <td>{{ paciente.telefono }}</td>
-                        <td>{{ paciente.fecha_nacimiento }}</td>
+                        <td>{{ paciente.fecha_nacimiento|date:'Y' }}</td>
                         <td>{{ paciente.protocolo }}</td>
                         <td>{{ paciente.numero_protocolo }}</td>
                         <td>{{ paciente.ojo_estudio }}</td>
                         <td>{{ paciente.site_nombre }}</td>
                         <td>{{ paciente.site_numero }}</td>
-                        <td>{{ paciente.investigador }} <a href="{% url "editar_visita" paciente.fecha_visita paciente.visita %}">Programar visita</a> </td>
-
+                        <td>{{ paciente.visita }}</td>
+                        <td>{{ paciente.fecha_visita }}</td>
+                        <td><a href="{% url 'editar_visita' paciente.fecha_visita paciente.visita %}">Programar visita</a></td>
                         <!-- Muestra los datos del paciente en las columnas correspondientes -->
                     </tr>
                 {% endfor %}

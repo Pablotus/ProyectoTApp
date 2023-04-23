@@ -4,6 +4,16 @@
 {% block contenidoQueCambia %}
 
     {# Ver todos los protocolos #}
+<br><hr>
+   <form action="{% url 'buscar_protocolos' %}">
+        <!-- Ejemplo de etiquetado personalizado para el campo 'nombre' -->
+    <label for="{{ form_busqueda.nombre.auto_id }}">{{ form_busqueda.nombre.label_tag }}</label>
+            {{ form_busqueda.nombre }}
+        <input type="submit" value="Buscar Protocolo">
+    </form>
+
+
+
     <div style="overflow-x:auto;">
         <table class="tabla-protocolos">
             <h1 class="mt-4">Todos los protocolos</h1>
