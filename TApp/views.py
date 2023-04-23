@@ -225,7 +225,7 @@ def eliminar_paciente(request, numero_paciente):
 #     }
 #     return render(request, "TApp/editar_visita.html", context=context)
 
-def editar_visita(request, fecha_visita, visita):
+def editar_visita(request, fecha_visita, visita, comentario=None):
     get_paciente = Paciente.objects.get(fecha_visita=fecha_visita, visita=visita)
 
 
@@ -237,6 +237,7 @@ def editar_visita(request, fecha_visita, visita):
 
             get_paciente.fecha_visita= informacion['fecha_visita']
             get_paciente.visita = informacion['visita']
+            get_paciente.comentario = informacion['comentario']
             get_paciente.save()
 
             return redirect("paciente")
@@ -245,6 +246,7 @@ def editar_visita(request, fecha_visita, visita):
     context = {
         "fecha_visita": fecha_visita,
         "visita": visita,
+        "comentario": comentario,
         "form": PacienteForm(initial={
             "numero_paciente": get_paciente.numero_paciente,
             "apellido": get_paciente.apellido,
@@ -261,6 +263,7 @@ def editar_visita(request, fecha_visita, visita):
             "nombre": get_paciente.nombre,
             "fecha_visita": get_paciente.fecha_visita,
             "visita": get_paciente.visita,
+            "comentario": get_paciente.comentario,
         })
     }
     return render(request, "TApp/editar_visita.html", context=context)

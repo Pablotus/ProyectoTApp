@@ -20,7 +20,7 @@ class PacienteForm(forms.Form):
     fecha_rando = forms.DateField()
     fecha_visita = forms.DateField()
     visita = forms.CharField(max_length=8)
-
+    comentario = forms.CharField(required=False,max_length=80)
 
 
 class BusquedaPacienteForm(forms.Form):

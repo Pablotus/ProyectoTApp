@@ -10,7 +10,7 @@ urlpatterns = [
     path('hoy', views.hoy, name="hoy"),
     path('protocolos', views.protocolos, name="protocolos"),
     path('inicio/eliminar/<eliminar_paciente>', views.eliminar_paciente, name="eliminar_paciente"),
-    path('inicio/editar/<fecha_visita>/,<visita>', views.editar_visita, name="editar_visita"),
+    path('inicio/editar/<fecha_visita>/,<visita>/<comentario>/', views.editar_visita, name="editar_visita"),
     path('busqueda_apellido', views.busqueda_apellido, name="busqueda_apellido"),
     path('buscar_protocolos',views.buscar_protocolos, name="buscar_protocolos"),
 ]

@@ -56,7 +56,7 @@
                         <td>{{ paciente.site_numero }}</td>
                         <td>{{ paciente.visita }}</td>
                         <td>{{ paciente.fecha_visita }}</td>
-                        <td><a href="{% url 'editar_visita' paciente.fecha_visita paciente.visita %}">Programar visita</a></td>
+                        <td><a href="{% url 'editar_visita' paciente.fecha_visita paciente.visita paciente.comentario %}">Programar visita</a></td>
                         <!-- Muestra los datos del paciente en las columnas correspondientes -->
                     </tr>
                 {% endfor %}

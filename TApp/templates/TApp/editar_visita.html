@@ -6,7 +6,7 @@
   <title>Programar proxima visita</title>
 
 </head>
-    <form action="{% url 'editar_visita' fecha_visita visita %}" method="post">
+    <form action="{% url 'editar_visita' fecha_visita visita comentario %}" method="post">
 
         {% csrf_token %}
         {{ form.as_p }}

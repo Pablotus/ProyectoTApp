@@ -17,6 +17,7 @@ class Paciente(models.Model):
     fecha_visita = models.DateField()
     visita = models.CharField(max_length=8)
     fecha_rando = models.DateField()
+    comentario = models.CharField(max_length=80)
 
     # def __str__(self):
     #     return f"nombre: {self.nombre}, apellido: {self.apellido}"
