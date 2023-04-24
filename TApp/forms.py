@@ -16,9 +16,9 @@ class PacienteForm(forms.Form):
     ojo_estudio = forms.CharField(max_length=2)
     site_nombre = forms.CharField(max_length=40)
     site_numero = forms.CharField(max_length=40)
-    investigador=forms.CharField(max_length=40)
+    investigador = forms.CharField(max_length=40)
     fecha_rando = forms.DateField()
-    fecha_visita = forms.DateField()
+    fecha_visita = forms.DateField(widget=forms.TextInput(attrs={'type': 'date'}))
     visita = forms.CharField(max_length=8)
     comentario = forms.CharField(required=False,max_length=80)
 

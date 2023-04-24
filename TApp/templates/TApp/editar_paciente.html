@@ -3,6 +3,8 @@
 
 {% block contenido_cambia %}
     {#Creacion de curso#}
+ <h1>Solo puede editar fecha de la visita, el numero de visita y comentarios</h1>
+
     <form action="{% url 'editar_paciente' fecha_visita visita comentario %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
