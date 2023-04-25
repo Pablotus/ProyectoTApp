@@ -14,26 +14,29 @@ from django.views import View
 from django.shortcuts import render
 from datetime import datetime
 from django.utils import timezone
-
 from django.forms import ModelForm
 from .models import Paciente
 from datetime import datetime, timedelta
 from django.utils import timezone
-
+from datetime import datetime
 def calendario(request):
     fecha_inicio = timezone.now().date()
-    fecha_fin = fecha_inicio + timedelta(days=30)
-
+    fecha_fin = fecha_inicio + timedelta(days=28)
     pacientes = Paciente.objects.filter(fecha_visita__range=[fecha_inicio, fecha_fin]).order_by('fecha_visita')
-
-
     return render(request, 'TApp/calendario.html', {'pacientes': pacientes})
 
 
+
+
 def hoy(request):
-    pacientes = Paciente.objects.filter(fecha_visita=timezone.now().date())
+    fecha_hoy = datetime.today().date()
+    pacientes = Paciente.objects.filter(fecha_visita=fecha_hoy)
 
     return render(request, 'TApp/hoy.html', {'pacientes': pacientes})
+
+
+
+
 
 
 
@@ -234,8 +237,8 @@ def eliminar_paciente(request, numero_paciente):
 #     }
 #     return render(request, "TApp/editar_visita.html", context=context)
 
-def editar_visita(request, fecha_visita, visita, comentario=None):
-    get_paciente = Paciente.objects.get(fecha_visita=fecha_visita, visita=visita)
+def editar_visita(request, numero_paciente):
+    get_paciente = Paciente.objects.get(numero_paciente=numero_paciente)
 
 
     if request.method == "POST":
@@ -253,9 +256,7 @@ def editar_visita(request, fecha_visita, visita, comentario=None):
 
 
     context = {
-        "fecha_visita": fecha_visita,
-        "visita": visita,
-        "comentario": comentario,
+        "numero_paciente": numero_paciente,
         "form": PacienteForm(initial={
             "numero_paciente": get_paciente.numero_paciente,
             "apellido": get_paciente.apellido,

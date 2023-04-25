@@ -9,7 +9,7 @@ class Paciente(models.Model):
     fecha_nacimiento = models.DateField()
     protocolo = models.CharField(max_length=40)
     numero_protocolo= models.CharField(max_length=40)
-    numero_paciente = models.CharField(max_length=40)
+    numero_paciente = models.CharField(max_length=40, unique=True)
     ojo_estudio = models.CharField(max_length=2)
     site_nombre = models.CharField(max_length=40)
     site_numero = models.CharField(max_length=40)

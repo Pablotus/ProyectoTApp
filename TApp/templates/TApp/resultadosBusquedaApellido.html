@@ -64,7 +64,7 @@
                         <td>{{ paciente.visita }}</td>
                             <td>{{ paciente.fecha_visita }}</td>
                             <td>{{ paciente.comentario }}</td>
-                            <td><a href="{% url 'editar_visita' paciente.fecha_visita paciente.visita paciente.comentario %}">Programar visita</a></td>
+                            <td><a href="{% url 'editar_visita' paciente.numero_paciente %}">Programar visita</a></td>
                             <!-- Muestra los datos del paciente en las columnas correspondientes -->
                         </tr>
                     {% endfor %}

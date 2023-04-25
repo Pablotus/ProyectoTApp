@@ -2,6 +2,7 @@
 {% load static %}
 {% block contenidoQueCambia %}
 
+<br><hr>
   <h1>Pacientes con visita hoy</h1>
 
     <ul>
@@ -18,6 +19,8 @@
                 <th style="padding-right: 40px;">Site</th>
                 <th style="padding-right: 40px;">Num Site</th>
                 <th style="padding-right: 40px;">Visita</th>
+                <th style="padding-right: 40px;">Comentario</th>
+
                 <!-- Agrega más columnas si es necesario -->
             </tr>
         </thead>
@@ -35,13 +38,14 @@
                         <td>{{ paciente.site_nombre }}</td>
                         <td>{{ paciente.site_numero }}</td>
                         <td>{{ paciente.visita }}</td>
-                        <td><a href="{% url 'editar_visita' paciente.fecha_visita paciente.visita paciente.comentario %}">Programar visita</a></td>
+                        <td>{{ paciente.comentario }}</td>
+                        <td><a href="{% url 'editar_visita' paciente.numero_paciente %}">Programar visita</a></td>
                         <!-- Muestra los datos del paciente en las columnas correspondientes -->
                     </tr>
 
-    {% endfor %}
+            {% endfor %}
     </ul>
-  {% else %}
+            {% else %}
     <p>No hay pacientes con visita hoy.</p>
   {% endif %}
 </tbody>
