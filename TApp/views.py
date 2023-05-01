@@ -19,6 +19,12 @@ from .models import Paciente
 from datetime import datetime, timedelta
 from django.utils import timezone
 from datetime import datetime
+from django.contrib.auth.decorators import login_required
+
+
+
+
+@login_required
 def calendario(request):
     fecha_inicio = timezone.now().date()
     fecha_fin = fecha_inicio + timedelta(days=28)
@@ -27,17 +33,17 @@ def calendario(request):
 
 
 
-
+@login_required
 def hoy(request):
     fecha_hoy = datetime.today().date()
     pacientes = Paciente.objects.filter(fecha_visita=fecha_hoy)
 
     return render(request, 'TApp/hoy.html', {'pacientes': pacientes})
 
-
 def inicio(request):
     return render(request, "TApp/index.html")
 
+@login_required
 def paciente(request):
 
     all_pacientes = Paciente.objects.all()
@@ -46,13 +52,13 @@ def paciente(request):
         "form_busqueda": BusquedaPacienteForm(),
     }
     return render(request, "TApp/paciente.html", context=context)
-
+@login_required
 def buscarpaciente(request):
     return render(request, "TApp/buscar_paciente.html")
 
 # def hoy(request):
 #     return render(request, "TApp/hoy.html")
-
+@login_required
 def protocolos(request):
 
     all_protocolos = Protocolo.objects.all()
@@ -60,6 +66,8 @@ def protocolos(request):
         "protocolos": all_protocolos,
     }
     return render(request, "TApp/protocolos.html", context=context)
+
+@login_required
 def busqueda_apellido(request):
     if request.method == 'GET' and 'apellido' in request.GET:
         mi_formulario2 = BusquedaApellidoForm(request.GET)
@@ -79,6 +87,7 @@ def busqueda_apellido(request):
         }
         return render(request, "TApp/resultadosBusquedaApellido.html", context=context)
 
+@login_required
 def busqueda_paciente(request):
     if request.method == 'GET' and 'numero_paciente' in request.GET:
         mi_formulario2 = BusquedaPacienteForm(request.GET)
@@ -98,7 +107,7 @@ def busqueda_paciente(request):
         }
         return render(request, "TApp/resultadosBusqueda.html", context=context)
 
-
+@login_required
 @require_http_methods(["GET"])
 def buscar_protocolos(request):
     form_busqueda = BusquedaProtocoloForm(request.GET)
@@ -231,7 +240,7 @@ def eliminar_paciente(request, numero_paciente):
 #         })
 #     }
 #     return render(request, "TApp/editar_visita.html", context=context)
-
+@login_required
 def editar_visita(request, numero_paciente):
     get_paciente = Paciente.objects.get(numero_paciente=numero_paciente)
 
