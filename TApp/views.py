@@ -35,11 +35,6 @@ def hoy(request):
     return render(request, 'TApp/hoy.html', {'pacientes': pacientes})
 
 
-
-
-
-
-
 def inicio(request):
     return render(request, "TApp/index.html")
 
